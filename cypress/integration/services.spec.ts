@@ -1,3 +1,3 @@
-/* import swFetcher_test from "@Services/swapi/swFetcher.spec";
+import chartDatabase_test from "@Services/firebase/chartDatabase.spec";
 
-swFetcher_test(); */
+chartDatabase_test();
