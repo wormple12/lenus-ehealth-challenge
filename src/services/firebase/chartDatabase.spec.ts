@@ -17,22 +17,23 @@ const stubDatabaseCall = (testData) => {
 
 export default function chartDatabase_test() {
     describe('ChartDatabase.getMeasurements', () => {
-        it('should return correct data as Measurement[]', () => {
+        beforeEach(() => {
             cy.fixture('measurements').as('measurementsJson').then(async testData => {
                 stubDatabaseCall(testData);
-
-                const measurements = await ChartDatabase.getMeasurements();
-                expect(measurements).to.have.lengthOf(4);
-                expect(measurements[0]).to.have.all.keys('date', 'weight');
-                expect(measurements[1].date.toDateString()).to.equal(
-                    new Date("Wed Sep 22 2021").toDateString(),
-                    "The measurement's date should have the correct value and format"
-                );
-                expect(measurements[2].weight).to.equal(
-                    75,
-                    "The measurement's weight should be correct"
-                );
             });
+        })
+        it('should return correct data as Measurement[]', async () => {
+            const measurements = await ChartDatabase.getMeasurements();
+            expect(measurements).to.have.lengthOf(4);
+            expect(measurements[0]).to.have.all.keys('date', 'weight');
+            expect(measurements[1].date.toDateString()).to.equal(
+                new Date("Wed Sep 22 2021").toDateString(),
+                "The measurement's date should have the correct value and format"
+            );
+            expect(measurements[2].weight).to.equal(
+                75,
+                "The measurement's weight should be correct"
+            );
         });
     });
 }
