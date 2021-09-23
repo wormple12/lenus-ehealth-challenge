@@ -1,0 +1,24 @@
+@import "variables.scss";
+
+.home-page-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+
+    @mixin home-page-child {
+        flex: auto;
+        border: 2px solid $grey;
+        border-radius: $border-radius;
+        padding: 0 2vw;
+    }
+
+    #chart-container {
+        @include home-page-child;
+    }
+
+    #list-container {
+        @include home-page-child;
+    }
+}
