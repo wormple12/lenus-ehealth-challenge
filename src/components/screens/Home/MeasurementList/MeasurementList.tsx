@@ -2,9 +2,9 @@ import React from "react";
 
 import { Measurement } from "@Types/Measurement";
 
-import { IconButton, List, ListItem, ListItemText, Divider } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { List, ListItem, Divider } from '@mui/material';
 import { MeasurementLogger } from "./MeasurementLogger";
+import { MeasurementItem } from "./MeasurementItem";
 
 type Props = {
     id: string,
@@ -19,31 +19,18 @@ export const MeasurementList: React.FC<Props> = props => {
                 && <p>You haven't logged any measurements yet.</p>
             }
             <List>
-                {props.measurements.map(m => (
-                    <ListItem
-                        key={m.date.toDateString()}
-                        disablePadding
-                        secondaryAction={
-                            <IconButton edge="end" aria-label="delete">
-                                <DeleteIcon />
-                            </IconButton>
-                        }
-                    >
-                        <ListItemText
-                            primary={m.date.toDateString()}
-                            secondary={`${m.weight} kg`}
-                        />
-                    </ListItem>
-                ))}
-                <Divider />
-                <nav aria-label="measurement actions">
-                    <List>
-                        <ListItem disablePadding>
-                            <MeasurementLogger />
-                        </ListItem>
-                    </List>
-                </nav>
+                {props.measurements.map((m, index) =>
+                    <MeasurementItem key={index} m={m} />
+                )}
             </List>
+            <Divider />
+            <nav aria-label="measurement actions">
+                <List>
+                    <ListItem disablePadding>
+                        <MeasurementLogger />
+                    </ListItem>
+                </List>
+            </nav>
         </div>
     );
 };

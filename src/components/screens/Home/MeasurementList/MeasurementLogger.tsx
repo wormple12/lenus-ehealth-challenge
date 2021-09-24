@@ -1,28 +1,38 @@
 import React, { useEffect, useState } from "react";
 
-import { isDateValid, isWeightValid, clampWeight } from "@Types/Measurement";
-
-import { ListItemText, ListItemButton, Dialog, DialogTitle, DialogContent, Button, DialogActions, DialogContentText, TextField, ListItemIcon } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { LocalizationProvider, DatePicker } from '@mui/lab';
-import locale from 'date-fns/locale/en-IN';
+import { isMeasurementValid } from "@Types/Measurement";
 import chartDatabase from "@Services/firebase/chartDatabase";
 
+import { Dialog, DialogTitle, DialogContent, Button, DialogActions, DialogContentText } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import { MeasurementAction } from "./MeasurementAction";
+import { DateField } from "./form/DateField";
+import { WeightField } from "./form/WeightField";
+
+const initialFormContent = {
+    date: new Date(),
+    weight: ""
+}
+
+const textContent = {
+    title: "Log your measurement",
+    desc: `To log a measurement, please fill out the form below.\n
+            Be aware that only one measurement can be logged per date.`,
+    buttonOpen: "Log measurement",
+    buttonCancel: "Cancel",
+    buttonSubmit: "Add",
+};
 
 export const MeasurementLogger: React.FC = props => {
     const [open, setOpen] = useState(false);
-    const [date, setDate] = useState<Date | null>(new Date());
-    const [weight, setWeight] = useState("");
     const [inputIsValid, setInputIsValid] = useState(false);
+    const [date, setDate] = useState<Date | null>(initialFormContent.date);
+    const [weight, setWeight] = useState(initialFormContent.weight);
 
     const openDialog = () => setOpen(true);
     const closeDialog = () => setOpen(false);
 
-    const formIsValid = () => {
-        return !!date && isDateValid(date)
-            && !!weight && isWeightValid(weight);
-    }
+    const formIsValid = () => isMeasurementValid(date, weight);
 
     useEffect(() => {
         setInputIsValid(formIsValid());
@@ -31,55 +41,37 @@ export const MeasurementLogger: React.FC = props => {
     const submitLog = (e: React.FormEvent) => {
         e.preventDefault();
         if (!!date && formIsValid()) {
-            chartDatabase.setMeasurement({ date, weight: parseInt(weight) });
+            chartDatabase.updateMeasurement({
+                date,
+                weight: parseFloat(weight)
+            });
         }
         closeDialog();
     };
 
     return (
         <>
-            <ListItemButton onClick={openDialog}>
-                <ListItemIcon>
-                    <AddIcon />
-                </ListItemIcon>
-                <ListItemText primary="Log measurement" />
-            </ListItemButton>
+            <MeasurementAction
+                label={textContent.buttonOpen}
+                icon={<AddIcon />}
+                onClick={openDialog}
+            />
             <Dialog open={open} onClose={closeDialog}>
                 <form autoComplete="off" onSubmit={submitLog}>
-                    <DialogTitle>Log your measurement</DialogTitle>
+                    <DialogTitle>{textContent.title}</DialogTitle>
                     <DialogContent>
-                        <DialogContentText>
-                            To log a measurement, please fill out the form below.
-                            Be aware that only one measurement can be logged per date.
-                        </DialogContentText>
+                        <DialogContentText>{textContent.desc}</DialogContentText>
                         <br />
-                        <LocalizationProvider dateAdapter={AdapterDateFns} locale={locale}>
-                            <DatePicker
-                                label="Date"
-                                value={date}
-                                onChange={(newValue) => setDate(newValue)}
-                                renderInput={(params) =>
-                                    <TextField {...params}
-                                        required
-                                        margin="dense" fullWidth
-                                        type="date"
-                                    />
-                                }
-                            />
-                        </LocalizationProvider>
-                        <TextField
-                            autoFocus required
-                            margin="dense" variant="standard" fullWidth
-                            label="Weight"
-                            type="number"
-                            value={weight}
-                            onChange={(evt) => setWeight(evt.target.value)}
-                            onBlur={(evt) => setWeight(clampWeight(evt.target.value))}
-                        />
+                        <DateField required value={date} setValue={setDate} />
+                        <WeightField required autoFocus value={weight} setValue={setWeight} />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={closeDialog}>Cancel</Button>
-                        <Button type="submit" disabled={!inputIsValid}>Add</Button>
+                        <Button onClick={closeDialog}>
+                            {textContent.buttonCancel}
+                        </Button>
+                        <Button type="submit" disabled={!inputIsValid}>
+                            {textContent.buttonSubmit}
+                        </Button>
                     </DialogActions>
                 </form>
             </Dialog>

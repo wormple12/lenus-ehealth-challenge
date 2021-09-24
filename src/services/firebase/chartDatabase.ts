@@ -7,7 +7,7 @@ export const transformSnapshotToMeasurements = (querySnapshot: QuerySnapshot<Doc
         const { weight } = docSnapshot.data();
         return {
             date: new Date(docSnapshot.id),
-            weight: parseInt(weight)
+            weight: parseFloat(weight)
         };
     });
 };
@@ -26,7 +26,7 @@ class ChartDatabase {
         });
     }
 
-    async setMeasurement(m: Measurement): Promise<void> {
+    async updateMeasurement(m: Measurement): Promise<void> {
         await setDoc(doc(firestore, 'tempData', 'lenus', 'measurements', m.date.toDateString()), {
             weight: m.weight
         });
