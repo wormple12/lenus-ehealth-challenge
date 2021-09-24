@@ -2,8 +2,9 @@ import React from "react";
 
 import { Measurement } from "@Types/Measurement";
 
-import { IconButton, List, ListItem, ListItemText } from '@mui/material';
+import { IconButton, List, ListItem, ListItemText, Divider } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { MeasurementLogger } from "./MeasurementLogger";
 
 type Props = {
     id: string,
@@ -14,6 +15,9 @@ export const MeasurementList: React.FC<Props> = props => {
     return (
         <div id={props.id}>
             <h2>Measurements</h2>
+            {props.measurements.length === 0
+                && <p>You haven't logged any measurements yet.</p>
+            }
             <List>
                 {props.measurements.map(m => (
                     <ListItem
@@ -29,6 +33,14 @@ export const MeasurementList: React.FC<Props> = props => {
                         />
                     </ListItem>
                 ))}
+                <Divider />
+                <nav aria-label="measurement actions">
+                    <List>
+                        <ListItem disablePadding>
+                            <MeasurementLogger />
+                        </ListItem>
+                    </List>
+                </nav>
             </List>
         </div>
     );
