@@ -14,6 +14,7 @@ export const Home: React.FC<Props> = props => {
     const [measurements, setMeasurements] = useState<Measurement[]>([]);
 
     useEffect(() => {
+        console.log("useEffect")
         const unsubscribe = chartDatabase.streamMeasurements(setMeasurements);
         return () => {
             const cleanup = async () => await unsubscribe;

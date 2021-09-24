@@ -21,6 +21,8 @@ export const MeasurementList: React.FC<Props> = props => {
             <List>
                 {props.measurements.map(m => (
                     <ListItem
+                        key={m.date.toDateString()}
+                        disablePadding
                         secondaryAction={
                             <IconButton edge="end" aria-label="delete">
                                 <DeleteIcon />
