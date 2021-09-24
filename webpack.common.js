@@ -16,7 +16,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Template Web App',
+            title: 'Weight Tracker',
             lang: "en",
             favicon: "./style/favicon/favicon.ico"
         }),
