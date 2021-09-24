@@ -1,20 +1,27 @@
-import { doc, collection, getDocs, setDoc, deleteDoc } from '@firebase/firestore';
+import { doc, collection, getDocs, setDoc, deleteDoc, onSnapshot, query, orderBy, DocumentData, QuerySnapshot, Unsubscribe } from '@firebase/firestore';
 import { firestore } from './firebase.config';
 import { Measurement } from '@Types/Measurement';
 
-export const readFromStore = async (collectionName: string) => {
-    return await getDocs(collection(firestore, 'tempData', 'lenus', collectionName));
+export const transformSnapshotToMeasurements = (querySnapshot: QuerySnapshot<DocumentData>): Measurement[] => {
+    return querySnapshot.docs.map(docSnapshot => {
+        const { weight } = docSnapshot.data();
+        return {
+            date: new Date(docSnapshot.id),
+            weight: parseInt(weight)
+        };
+    });
 };
 
 class ChartDatabase {
-    async getMeasurements(): Promise<Measurement[]> {
-        const querySnap = await readFromStore("measurements");
-        return querySnap.docs.map(doc => {
-            const { weight } = doc.data();
-            return {
-                date: new Date(doc.id),
-                weight: parseInt(weight)
-            };
+    async streamMeasurements(
+        setMeasurements: (measurements: Measurement[]) => void,
+    ): Promise<Unsubscribe> {
+        const q = query(collection(firestore, 'tempData', 'lenus', "measurements"), orderBy("date", "desc"));
+        return onSnapshot(q, {
+            next: querySnapshot => {
+                const updatedData = transformSnapshotToMeasurements(querySnapshot);
+                setMeasurements(updatedData);
+            },
         });
     }
 
