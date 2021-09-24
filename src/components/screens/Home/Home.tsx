@@ -5,6 +5,8 @@ import { Measurement } from '@Types/Measurement';
 import chartDatabase from '@Services/firebase/chartDatabase';
 
 import './Home.scss';
+import { MeasurementList } from './MeasurementList/MeasurementList';
+import { TrackerChart } from './TrackerChart/TrackerChart';
 
 type Props = RouteComponentProps;
 
@@ -28,19 +30,13 @@ export const Home: React.FC<Props> = props => {
             </p>
             <br />
             <div className="home-page-flex">
-                <div id="chart-container"></div>
-                <div id="list-container">
-                    <h2>Measurements</h2>
-                    {/* <List>
-                        {measurements.map(m => (
-                            <ListItem
-                                caption={m.date.toDateString()}
-                                legend={`${m.weight} kg`}
-                                rightIcon='delete'
-                            />
-                        ))}
-                    </List> */}
-                </div>
+                <TrackerChart
+                    id="chart-container"
+                />
+                <MeasurementList
+                    id="list-container"
+                    measurements={measurements}
+                />
             </div>
         </section>
     );
