@@ -13,8 +13,8 @@ type Props = {
 };
 
 export const MeasurementItem: React.FC<Props> = props => {
-    const deleteItem = () => {
-        chartDatabase.deleteMeasurement(props.m.date);
+    const deleteItem = async () => {
+        await chartDatabase.deleteMeasurement(props.m.date);
     }
 
     const numberFormat = new Intl.NumberFormat('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });

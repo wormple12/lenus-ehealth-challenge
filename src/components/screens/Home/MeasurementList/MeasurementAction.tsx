@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ListItemText, ListItemButton, ListItemIcon } from '@mui/material';
+import { ListItemText, ListItemButton, ListItemIcon, ListItem } from '@mui/material';
 
 type Props = {
     label: string,
@@ -10,11 +10,13 @@ type Props = {
 
 export const MeasurementAction: React.FC<Props> = props => {
     return (
-        <ListItemButton onClick={props.onClick}>
-            <ListItemIcon>
-                {props.icon}
-            </ListItemIcon>
-            <ListItemText primary={props.label} />
-        </ListItemButton>
+        <ListItem disablePadding>
+            <ListItemButton onClick={props.onClick}>
+                <ListItemIcon>
+                    {props.icon}
+                </ListItemIcon>
+                <ListItemText primary={props.label} />
+            </ListItemButton>
+        </ListItem>
     );
 };

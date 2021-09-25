@@ -2,9 +2,13 @@ import React from "react";
 
 import { Measurement } from "@Types/Measurement";
 
-import { List, ListItem, Divider } from '@mui/material';
+import { List, Divider } from '@mui/material';
 import { MeasurementLogger } from "./MeasurementLogger";
 import { MeasurementItem } from "./MeasurementItem";
+
+const textContent = {
+    heading: "Measurements",
+}
 
 type Props = {
     id: string,
@@ -14,10 +18,7 @@ type Props = {
 export const MeasurementList: React.FC<Props> = props => {
     return (
         <div id={props.id}>
-            <h2>Measurements</h2>
-            {props.measurements.length === 0
-                && <p>You haven't logged any measurements yet.</p>
-            }
+            <h2>{textContent.heading}</h2>
             <List>
                 {props.measurements.map((m, index) =>
                     <MeasurementItem key={index} m={m} />
@@ -26,9 +27,7 @@ export const MeasurementList: React.FC<Props> = props => {
             <Divider />
             <nav aria-label="measurement actions">
                 <List>
-                    <ListItem disablePadding>
-                        <MeasurementLogger />
-                    </ListItem>
+                    <MeasurementLogger />
                 </List>
             </nav>
         </div>

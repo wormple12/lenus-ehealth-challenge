@@ -1,5 +1,13 @@
 @import "variables.scss";
 
+#empty-list-box {
+    width: 400px;
+    max-width: 100%;
+    padding: 1em;
+    border: solid $black 2px;
+    border-radius: $border-radius;
+}
+
 .home-page-flex {
     display: flex;
     flex-wrap: wrap;
@@ -12,10 +20,16 @@
         border: 2px solid $grey;
         border-radius: $border-radius;
         padding: 0 2vw;
+        margin: 0 10px 10px;
     }
 
     #chart-container {
         @include home-page-child;
+
+        tspan {
+            font-family: $font-family !important;
+            font-size: $font-size-desc !important;
+        }
     }
 
     #list-container {
