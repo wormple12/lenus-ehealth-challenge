@@ -26,6 +26,7 @@
     #chart-container {
         @include home-page-child;
 
+        text,
         tspan {
             font-family: $font-family !important;
             font-size: $font-size-desc !important;

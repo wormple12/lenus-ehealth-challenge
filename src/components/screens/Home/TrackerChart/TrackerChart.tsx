@@ -43,25 +43,28 @@ export const TrackerChart: React.FC<Props> = props => {
                 <VictoryAxis crossAxis
                     domain={[earliestDate, latestDate]}
                     tickCount={6}
+                    tickLabelComponent={
+                        <VictoryLabel angle={90} dy={-7} dx={27} />
+                    }
                     style={{
                         ticks: {
                             size: -5,
                             stroke: 'black',
                         },
-                        tickLabels: { angle: 90, padding: 35 },
                     }}
                     standalone={false}
                 />
                 <VictoryAxis dependentAxis crossAxis
                     domain={[minWeight, maxWeight]}
                     label={textContent.weightAxisLabel}
-                    axisLabelComponent={<VictoryLabel dy={-12} />}
+                    axisLabelComponent={
+                        <VictoryLabel dy={-12} angle={-90} />
+                    }
                     style={{
                         ticks: {
                             size: -5,
                             stroke: 'black',
-                        },
-                        axisLabel: { angle: -90 }
+                        }
                     }}
                     standalone={false}
                 />
