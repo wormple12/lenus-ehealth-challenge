@@ -2,7 +2,7 @@
 A simple dynamic chart application developed by Simon Norup as a code challenge
 for the company Lenus eHealth.
 
-(TBD) Currently quick-deployed with Surge.
+Solution can be found deployed at: http://wormple12.lenus-ehealth-challenge.surge.sh/
 
 The current tech stack includes:
 - Webpack, Babel and TypeScript
