@@ -9,15 +9,15 @@ import { MainRoutes } from './Routes';
 
 const App: React.FC = () => {
   return (
-    <ErrorBoundary>
-      <Router>
-        <main>
+    <Router>
+      <main>
+        <ErrorBoundary>
           <React.Suspense fallback={<SuspenseLoader />}>
             <MainRoutes />
           </React.Suspense>
-        </main>
-      </Router>
-    </ErrorBoundary>
+        </ErrorBoundary>
+      </main>
+    </Router>
   );
 };
 
