@@ -6,10 +6,14 @@ import "@Style/variables.scss";
 
 import { SuspenseLoader, ErrorBoundary } from "./utilities";
 import { MainRoutes } from './Routes';
+import { AppBar } from './shared/AppBar/AppBar';
 
 const App: React.FC = () => {
   return (
     <Router>
+      <header>
+        <AppBar />
+      </header>
       <main>
         <ErrorBoundary>
           <React.Suspense fallback={<SuspenseLoader />}>
