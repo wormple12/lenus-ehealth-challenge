@@ -4,9 +4,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import "@Style/style.scss";
 import "@Style/variables.scss";
 
-import { SuspenseLoader, ErrorBoundary } from "./utilities";
+import { ErrorBoundary } from "./utilities";
 import { MainRoutes } from './Routes';
-import { AppBar } from './shared/AppBar/AppBar';
+import { AppBar } from './shared';
 
 const App: React.FC = () => {
   return (
@@ -16,9 +16,7 @@ const App: React.FC = () => {
       </header>
       <main>
         <ErrorBoundary>
-          <React.Suspense fallback={<SuspenseLoader />}>
-            <MainRoutes />
-          </React.Suspense>
+          <MainRoutes />
         </ErrorBoundary>
       </main>
     </Router>
