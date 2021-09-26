@@ -2,6 +2,8 @@
 A simple dynamic chart application developed by Simon Norup as a code challenge
 for the company Lenus eHealth.
 
+**NOTE:** I unfortunately started out working directly on the main branch, and now I can't start a pull request with all the changes. But now there's at least *some* kind of pull request, so you still have an option to give general feedback.
+
 Solution can be found deployed at: http://wormple12.lenus-ehealth-challenge.surge.sh/
 
 ### Npm Scripts
