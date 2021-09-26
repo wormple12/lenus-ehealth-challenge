@@ -1,6 +1,5 @@
-import { DocumentData, QuerySnapshot } from '@firebase/firestore';
 import { Measurement } from '@Types/Measurement';
-import ChartDatabase, * as db_methods from './chartDatabase';
+import * as db_methods from './chartDatabase';
 
 /**
  * Helper method to get an object that mimics a Firestore snapshot without

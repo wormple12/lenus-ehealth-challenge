@@ -1,4 +1,4 @@
-import { doc, collection, setDoc, deleteDoc, onSnapshot, query, orderBy, DocumentData, QuerySnapshot, Unsubscribe } from '@firebase/firestore';
+import { doc, collection, setDoc, deleteDoc, onSnapshot, query, DocumentData, QuerySnapshot, Unsubscribe } from '@firebase/firestore';
 import { firestore } from './firebase.config';
 import { Measurement, sortMeasurements } from '@Types/Measurement';
 
